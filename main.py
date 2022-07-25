@@ -1,3 +1,4 @@
+from tkinter.messagebox import NO
 from cvzone.HandTrackingModule import HandDetector
 import cv2
 import socket
@@ -30,5 +31,6 @@ while True:
         sock.sendto(str.encode(str(data)), serverAddressPort)
  
     # Display
+    img = cv2.resize(img, (0, 0), None, 0.5, 0.5)
     cv2.imshow("Image", img)
     cv2.waitKey(1)
