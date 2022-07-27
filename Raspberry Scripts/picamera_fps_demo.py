@@ -25,6 +25,8 @@ rawCapture = PiRGBArray(camera, size=(320, 240))
 stream = camera.capture_continuous(rawCapture, format="bgr",
 	use_video_port=True)
 
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+serverAddressPort = ("127.0.0.1", 5052)
 # allow the camera to warmup and start the FPS counter
 print("[INFO] sampling frames from `picamera` module...")
 time.sleep(2.0)
@@ -37,10 +39,21 @@ for (i, f) in enumerate(stream):
     frame = imutils.resize(frame, width=400)
     # check to see if the frame should be displayed to our screen
     hands, img = detector.findHands(frame)
-
+    # hands = detector.findHands(img, draw=False)  # without draw
+    data = []
+ 
+    if hands:
+        # Hand 1
+        hand = hands[0]
+        lmList = hand["lmList"]  # List of 21 Landmark points
+        for lm in lmList:
+            data.extend([lm[0], h - lm[1], lm[2]])
+ 
+        sock.sendto(str.encode(str(data)), serverAddressPort)
     if args["display"] > 0:
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
+        
     # clear the stream in preparation for the next frame and update
     # the FPS counter
     rawCapture.truncate(0)
