@@ -5821,7 +5821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   port: 5052
   startRecieving: 1
-  printToConsole: 1
+  printToConsole: 0
   data: 
 --- !u!4 &1944666781
 Transform:

@@ -4,7 +4,7 @@ using UnityEngine;
  
 public class HandTracking : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public UDPReceive udpReceive;
     public GameObject[] handPoints;
     void Start()
@@ -12,7 +12,6 @@ public class HandTracking : MonoBehaviour
         
     }
  
-    // Update is called once per frame
     void Update()
     {
         string data = udpReceive.data;
@@ -22,9 +21,7 @@ public class HandTracking : MonoBehaviour
         print(data);
         string[] points = data.Split(',');
         print(points[0]);
- 
-        //0        1*3      2*3
-        //x1,y1,z1,x2,y2,z2,x3,y3,z3
+
  
         for ( int i = 0; i<21; i++)
         {

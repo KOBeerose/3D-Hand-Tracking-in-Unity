@@ -19,8 +19,7 @@ public class UDPReceive : MonoBehaviour
     public void Start()
     {
 
-        receiveThread = new Thread(
-            new ThreadStart(ReceiveData));
+        receiveThread = new Thread(new ThreadStart(ReceiveData));
         receiveThread.IsBackground = true;
         receiveThread.Start();
     }
@@ -36,7 +35,7 @@ public class UDPReceive : MonoBehaviour
 
             try
             {
-                IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
+                IPEndPoint anyIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5052);
                 byte[] dataByte = client.Receive(ref anyIP);
                 data = Encoding.UTF8.GetString(dataByte);
 
