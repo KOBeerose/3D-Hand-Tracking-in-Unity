@@ -25,9 +25,13 @@ while True:
         # Hand 1
         hand = hands[0]
         lmList = hand["lmList"]  # List of 21 Landmark points
+        print("this is lmList:\nlen(lmList):", len(lmList))
+        print(lmList)
+        print("this is lmList[0]:\nlen(lmList[0]):", len(lmList[0]))
+        print(lmList[0])
         for lm in lmList:
             data.extend([lm[0], h - lm[1], lm[2]])
- 
+        print(data)
         sock.sendto(str.encode(str(data)), serverAddressPort)
  
     # Display
